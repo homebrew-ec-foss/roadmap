@@ -1,14 +1,14 @@
-
+{{define "roadmap"}}
 <!doctype html>
 <html lang="en">
 
 <head>
-  
+  {{ $PageData := index .DeepDataMerge.Templates .PageURL }}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta
     name="description"
-    content="A visual timeline of Homebrew EC&amp;FOSS.">
+    content="{{$PageData.Frontmatter.Description}}">
   <title>Homebrew EC&FOSS — Our commit history.</title>
   <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -82,22 +82,16 @@
           <path class="road-path"></path>
         </svg>
 
-        
-          
-        
-          
-        
-          
-        
-          
+        {{range $url, $page := .DeepDataMerge.Templates}}
+          {{if strSliceContains $page.Frontmatter.Collections "milestones"}}
             <article
               class="milestone"
-              data-date="2026-09-10"
-              data-url="milestones/fireside.html">
+              data-date="{{$page.Frontmatter.Date}}"
+              data-url="{{$page.CompleteURL}}">
               <button
                 class="milestone-node"
                 type="button"
-                aria-label="Open FireSide">
+                aria-label="Open {{$page.Frontmatter.Title}}">
                 <span class="node-number"></span>
                 <span class="node-core"></span>
               </button>
@@ -111,72 +105,19 @@
                     loading="lazy">
                 </div>
                 <div class="milestone-card-body">
-                  <time datetime="2026-09-10">
-                    2026-09-10
+                  <time datetime="{{$page.Frontmatter.Date}}">
+                    {{$page.Frontmatter.Date}}
                   </time>
-                  <h3>FireSide</h3>
-                  
-                    <p>A space to share projects, tools, ideas and anything that interests you.</p>
-                  
+                  <h3>{{$page.Frontmatter.Title}}</h3>
+                  {{if $page.Frontmatter.Description}}
+                    <p>{{$page.Frontmatter.Description}}</p>
+                  {{end}}
                   <span class="read-more">cat story.md -></span>
                 </div>
               </div>
             </article>
-          
-        
-          
-            <article
-              class="milestone"
-              data-date="2026-04-11"
-              data-url="milestones/fosstalks3.html">
-              <button
-                class="milestone-node"
-                type="button"
-                aria-label="Open Foss Talk 3.0">
-                <span class="node-number"></span>
-                <span class="node-core"></span>
-              </button>
-
-              <span class="milestone-here">YOU ARE HERE</span>
-              <div class="milestone-card">
-                <div class="milestone-image">
-                  <img
-                    src="/images/fireside.jpg"
-                    alt=""
-                    loading="lazy">
-                </div>
-                <div class="milestone-card-body">
-                  <time datetime="2026-04-11">
-                    2026-04-11
-                  </time>
-                  <h3>Foss Talk 3.0</h3>
-                  
-                    <p>An exciting meetup where industry experts share their insights and experiences with open-source technologies!</p>
-                  
-                  <span class="read-more">cat story.md -></span>
-                </div>
-              </div>
-            </article>
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
+          {{end}}
+        {{end}}
       </div>
     </section>
   </main>
@@ -192,3 +133,4 @@
   <script src="/static/roadmap.js"></script>
 </body>
 </html>
+{{end}}

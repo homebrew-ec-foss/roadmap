@@ -1,0 +1,706 @@
+:root {
+  --bg: #fffffe;
+  --text: rgb(41, 41, 41);
+  --muted: rgb(117, 117, 117);
+  --accent: #ff914d;
+  --accent-rgb: 255, 145, 77;
+  --border: rgba(41, 41, 41, 0.14);
+  --border-soft: rgba(230, 230, 230, 1);
+  --card: #fffffe;
+  --code-bg: #0f1419;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family:"Iosevka Web","JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  line-height: 1.54;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%23ff914d' fill-opacity='0.06' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1z'%3E%3C/path%3E%3C/svg%3E");
+}
+.brand-bar {
+  padding: 18px 6%;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.brand-logo {
+  height: 30px;
+  width: auto;
+  display: block;
+}
+
+.brand-mark span {
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+.hero {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.hero-grid {
+  display: none;
+}
+
+.hero-inner {
+  width: min(1000px, 88%);
+  margin: auto;
+  padding: 80px 0;
+}
+
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 30px;
+}
+
+.hero h1 {
+  margin: 0 0 25px;
+  font-size: clamp(48px, 8vw, 88px);
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -1px;
+}
+
+.hero h1 span {
+  color: var(--accent);
+}
+
+.hero-copy {
+  max-width: 500px;
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.start-button {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 12px 20px;
+  border: 2px solid var(--accent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.start-button:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.hero-sticker {
+  display: none;
+}
+.roadmap-intro {
+  width: min(1000px, 88%);
+  margin: auto;
+  padding: 100px 0 60px;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.section-kicker {
+  margin: 0 0 15px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.roadmap-intro h2 {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 56px);
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 6px;
+}
+
+.roadmap-intro h2 em {
+  font-style: normal;
+}
+
+.section-note {
+  max-width: 280px;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.roadmap-wrap {
+  width: 100%;
+  padding: 0 5% 120px;
+  overflow: hidden;
+}
+
+.roadmap {
+  position: relative;
+  width: min(1000px, 100%);
+  margin: auto;
+}
+
+.roadmap-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.road-path {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 2;
+  stroke-dasharray: 6 8;
+  transition: stroke-dashoffset 100ms linear;
+}
+
+
+.milestone {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.milestone-node {
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(41, 41, 41, 0.15);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--text);
+  cursor: pointer;
+  position: relative;
+  transform: rotate(var(--node-rotation, 0deg));
+  transition: transform 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.milestone-node:hover,
+.milestone-node:focus-visible {
+  background: var(--text);
+  color: var(--bg);
+  transform: rotate(0deg) scale(1.12);
+}
+
+.node-number {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+.node-core {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  background: var(--text);
+  border-radius: 50%;
+  top: 7px;
+  right: 7px;
+}
+
+.milestone-card {
+  position: absolute;
+  top: 50%;
+  width: 300px;
+  background: var(--card);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 8px 24px rgba(41, 41, 41, 0.07);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%);
+  transition: opacity 150ms ease, transform 150ms ease;
+  pointer-events: none;
+}
+
+.milestone.left .milestone-card {
+  left: 90px;
+}
+
+.milestone.right .milestone-card {
+  right: 90px;
+}
+
+.milestone:hover .milestone-card,
+.milestone:focus-within .milestone-card {
+  opacity: 1;
+  visibility: visible;
+}
+
+.milestone:hover .milestone-card {
+  transform: translateY(-50%) translateX(5px);
+}
+
+.milestone-image {
+  height: 140px;
+  border-bottom: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+
+.milestone-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.milestone-card-body {
+  padding: 16px;
+}
+
+.milestone-card time {
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.milestone-card h3 {
+  margin: 7px 0;
+  font-size: var(--text-xl);
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.milestone-card p {
+  margin: 0 0 15px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: var(--text-sm);
+}
+
+.read-more {
+  font-size: 11px;
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.milestone.current .milestone-node {
+  background: var(--text);
+  color: var(--bg);
+  animation: node-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0);
+  }
+}
+
+.milestone.current .milestone-card {
+  border-color: var(--accent);
+}
+
+.milestone-here {
+  position: absolute;
+  top: -35px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  white-space: nowrap;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 150ms ease;
+  pointer-events: none;
+}
+
+.milestone.current .milestone-here {
+  opacity: 1;
+}
+
+.milestone.current .milestone-here::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 15px;
+  width: 1px;
+  height: 16px;
+  background: var(--accent);
+}
+
+.site-footer {
+  padding: 20px 6%;
+  border-top: 1px solid var(--border-soft);
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.story-topbar {
+  min-height: 65px;
+  padding: 0 6%;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.back-link {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.back-link:hover {
+  color: var(--accent);
+}
+
+.story {
+  width: min(850px, 88%);
+  margin: auto;
+  padding: 70px 0 100px;
+}
+
+.story-hero-image {
+  width: 100%;
+  height: 420px;
+  margin-bottom: 55px;
+  border: 1px solid var(--border-soft);
+  overflow: hidden;
+}
+
+.story-hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-meta {
+  display: flex;
+  gap: 25px;
+  margin-bottom: 20px;
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.story h1 {
+  margin: 0 0 25px;
+  font-size: clamp(40px, 8vw, 72px);
+  line-height: 1.05;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+.story-lede {
+  max-width: 700px;
+  font-size: var(--text-xl);
+  line-height: 1.6;
+  color: var(--muted);
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.story-content {
+  max-width: 700px;
+  margin: 50px auto;
+  font-size: var(--text-base);
+  line-height: 1.7;
+}
+
+.story-content h2 {
+  margin-top: 50px;
+  font-size: var(--text-3xl);
+  font-weight: 400;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-underline-offset: 5px;
+}
+
+.story-content h3 {
+  margin-top: 35px;
+  font-size: var(--text-2xl);
+  font-weight: 400;
+}
+
+.story-content a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
+.story-content a:hover {
+  color: var(--accent);
+}
+
+.story-content img {
+  max-width: 100%;
+}
+
+.story-content blockquote {
+  margin: 30px 0;
+  padding-left: 20px;
+  border-left: 3px solid var(--accent);
+  font-style: italic;
+  color: var(--muted);
+}
+
+.story-content pre {
+  padding: 20px;
+  overflow-x: auto;
+  background: var(--code-bg);
+  color: #fffffe;
+}
+
+.story-content code {
+  font-family: inherit;
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.15);
+  padding: 1px 6px;
+}
+
+.story-content pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.back-button {
+  display: inline-block;
+  padding: 12px 20px;
+  border: 2px solid var(--accent);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.back-button:hover {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+.roadmap-info {
+  width: 280px;
+}
+
+.progress {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.progress-line {
+  height: 2px;
+  background: var(--border-soft);
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-line span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+
+  transition: width 250ms ease;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 75vh;
+  }
+
+  .hero-inner {
+    padding: 60px 0;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    letter-spacing: -0.5px;
+  }
+
+  .roadmap-intro {
+    display: block;
+    padding: 70px 0 45px;
+  }
+
+  .roadmap-info {
+    width: 100%;
+  }
+
+  .section-note {
+    margin-top: 30px;
+  }
+
+  .progress {
+    max-width: 350px;
+  }
+
+  .roadmap-wrap {
+    padding: 0 7% 80px;
+  }
+
+  .roadmap {
+    padding-left: 55px;
+  }
+
+  .roadmap::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    bottom: 25px;
+    width: 2px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--muted) 0 6px,
+      transparent 6px 12px
+    );
+  }
+
+  .roadmap-svg {
+    display: none;
+  }
+
+  .milestone {
+    position: relative;
+    width: 100%;
+    height: auto;
+    left: auto !important;
+    top: auto !important;
+    transform: none;
+    margin-bottom: 40px;
+  }
+
+  .milestone-node {
+    position: absolute;
+    left: -55px;
+    top: 18px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .node-number {
+    font-size: 12px;
+  }
+
+  .node-core {
+    width: 6px;
+    height: 6px;
+    top: 6px;
+    right: 6px;
+  }
+
+  .milestone-card,
+  .milestone.left .milestone-card,
+  .milestone.right .milestone-card {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    width: 100%;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+  }
+
+  .milestone-image {
+    height: 170px;
+  }
+
+  .milestone-here {
+    left: -5px;
+    top: -3px;
+    transform: translateX(0) rotate(-3deg);
+  }
+
+  .milestone.current .milestone-here::after {
+    display: none;
+  }
+
+  .milestone.current .milestone-node {
+    animation: node-pulse 1.8s ease-in-out infinite;
+  }
+
+  .story-topbar {
+    padding: 15px 6%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .story {
+    padding-top: 45px;
+  }
+
+  .story-hero-image {
+    height: 250px;
+  }
+
+  .story h1 {
+    font-size: 44px;
+    letter-spacing: -0.5px;
+  }
+
+  .story-content {
+    font-size: var(--text-sm);
+  }
+
+  .site-footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
