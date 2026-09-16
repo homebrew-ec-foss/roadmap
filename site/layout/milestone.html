@@ -1,0 +1,70 @@
+{{define "milestone"}}
+<!doctype html>
+<html lang="en">
+<head>
+  {{ $page := index .DeepDataMerge.Templates .PageURL }}
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
+  <meta
+    name="description"
+    content="{{$page.Frontmatter.Description}}">
+  <title>
+    {{$page.Frontmatter.Title}} — Homebrew EC&FOSS
+  </title>
+  <link
+    rel="stylesheet"
+    href="/static/style.css">
+</head>
+
+<body class="story-page">
+  <header class="story-topbar">
+    <a
+      href="/"
+      class="back-link">
+      ← BACK TO COMMIT HISTORY
+    </a>
+    <span>HOME BREW / EC&amp;FOSS</span>
+  </header>
+
+  <main class="story">
+    <div class="story-hero-image">
+  <img
+    src="/images/fireside.jpg"
+    alt="">
+</div>
+    <div class="story-meta">
+      <time
+        datetime="{{$page.Frontmatter.Date}}">
+        {{$page.Frontmatter.Date}}
+      </time>
+      <span>
+        HOME BREW / MILESTONE
+      </span>
+    </div>
+    <h1>
+      {{$page.Frontmatter.Title}}
+    </h1>
+    {{if $page.Frontmatter.Description}}
+      <p class="story-lede">
+        {{$page.Frontmatter.Description}}
+      </p>
+    {{end}}
+    <article class="story-content">
+      {{$page.Body}}
+    </article>
+    <a
+      class="back-button"
+      href="/">
+      ← BACK TO ALL MILESTONES
+    </a>
+  </main>
+  <footer class="site-footer">
+    <div>HOME BREW EC&amp;FOSS</div>
+    <div>BUILT WITH ANNA ♥
+    </div>
+  </footer>
+</body>
+</html>
+{{end}}
