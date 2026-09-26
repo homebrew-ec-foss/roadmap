@@ -1,0 +1,172 @@
+name: Deploy Site
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+  pull-requests: write
+  actions: read
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false # Important: Let them finish to ensure cache is updated
+
+jobs:
+  build:
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    outputs:
+      artifact-path: ${{ steps.prep.outputs.path }}
+    steps:
+      - name: Checkout site repo
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ">=1.25.3"
+
+      - name: Cache build tools
+        id: cache-tools
+        uses: actions/cache@v4
+        with:
+          path: |
+            /tmp/anna
+            ~/go/pkg/mod
+          key: ${{ runner.os }}-build-tools-${{ hashFiles('ci/patch_anna.py') }}
+          restore-keys: |
+            ${{ runner.os }}-build-tools-
+
+      - name: Clone and Patch anna
+        if: steps.cache-tools.outputs.cache-hit != 'true'
+        run: |
+          git clone --depth=1 https://github.com/anna-ssg/anna.git /tmp/anna
+          cd /tmp/anna
+          go get github.com/zmtcreative/gm-alert-callouts@latest
+          cd ${{ github.workspace }}
+          python3 ci/patch_anna.py /tmp/anna
+
+      - name: Build patched anna binary
+        working-directory: /tmp/anna
+        run: |
+          if [ ! -f ./anna ] || [ ! -x ./anna ]; then
+            go mod tidy
+            go build -o ./anna .
+          fi
+          chmod +x ./anna
+          echo "/tmp/anna" >> $GITHUB_PATH
+
+      - name: Build Site
+        run: /tmp/anna/anna
+
+      - name: Prepare build directory
+        id: prep
+        run: |
+          ./ci/prepare_build.sh \
+            "${{ github.event.repository.name }}" \
+            "${{ github.event_name }}" \
+            "${{ github.event.number }}"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.prep.outputs.path }}
+          path: ${{ steps.prep.outputs.path }}
+          retention-days: 7
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [build]
+    if: always() && (needs.build.result == 'success' || (github.event_name == 'pull_request' && github.event.action == 'closed' && needs.build.result == 'skipped'))
+    steps:
+      - name: Checkout site repo
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Download all build artifacts
+        id: get-artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const repo = context.repo;
+
+            // 1. Get all active artifacts
+            const response = await github.rest.actions.listArtifactsForRepo({
+              owner: repo.owner,
+              repo: repo.repo,
+              per_page: 100
+            });
+            const artifacts = response.data.artifacts;
+            
+            core.info(`Fetched ${artifacts.length} artifacts:`);
+            for (const a of artifacts) {
+              core.info(`- Name: ${a.name}, RunID: ${a.workflow_run.id}, CreatedAt: ${a.created_at}, Expired: ${a.expired}`);
+            }
+
+            // 2. Get all open PRs
+            const openPRs = await github.rest.pulls.list({
+              owner: repo.owner,
+              repo: repo.repo,
+              state: 'open'
+            });
+            const openPRNumbers = new Set(openPRs.data.map(pr => pr.number));
+            core.info(`Open PR numbers: ${Array.from(openPRNumbers).join(', ')}`);
+
+            const targets = {};
+            for (const artifact of artifacts) {
+              if (artifact.expired) continue;
+
+              const name = artifact.name; // main_site or PRxx
+
+              if (name === 'main_site' || (name.startsWith('PR') && openPRNumbers.has(parseInt(name.substring(2))))) {
+                const currentTarget = targets[name];
+                if (!currentTarget || new Date(artifact.created_at) > new Date(currentTarget.created_at)) {
+                  targets[name] = {
+                    run_id: artifact.workflow_run.id,
+                    name: artifact.name,
+                    created_at: artifact.created_at
+                  };
+                }
+              }
+            }
+
+            core.info(`Found active targets: ${JSON.stringify(targets, null, 2)}`);
+            return targets;
+
+      - name: Restore and Merge
+        run: |
+          chmod +x ./ci/merge_previews.sh
+          ./ci/merge_previews.sh \
+            '${{ steps.get-artifacts.outputs.result }}' \
+            "${{ github.event.action }}" \
+            "${{ github.event.number }}" \
+            "${{ github.repository }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: final_site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && github.event.action != 'closed'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            🚀 Preview ready at https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/PR${{ github.event.number }}/
+          comment_tag: preview-link
