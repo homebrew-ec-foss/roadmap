@@ -208,8 +208,8 @@ body {
   height: 60px;
   border: 2px solid rgba(41, 41, 41, 0.15);
   border-radius: 50%;
-  background: var(--accent);
-  color: var(--text);
+  background: var(--text);
+  color: var(--bg);
   cursor: pointer;
   position: relative;
   transform: rotate(var(--node-rotation, 0deg));
@@ -218,8 +218,8 @@ body {
 
 .milestone-node:hover,
 .milestone-node:focus-visible {
-  background: var(--text);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--text);
   transform: rotate(0deg) scale(1.12);
 }
 
@@ -232,13 +232,7 @@ body {
 }
 
 .node-core {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  background: var(--text);
-  border-radius: 50%;
-  top: 7px;
-  right: 7px;
+  display: none;
 }
 
 .milestone-card {
@@ -327,7 +321,7 @@ body {
 }
 
 .milestone.current .milestone-node {
-  background: var(--text);
+  background: #e6432c;
   color: var(--bg);
   animation: node-pulse 1.8s ease-in-out infinite;
 }
@@ -335,10 +329,10 @@ body {
 @keyframes node-pulse {
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.3);
+    box-shadow: 0 0 0 0 rgba(230, 67, 44, 0.3);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(var(--accent-rgb), 0);
+    box-shadow: 0 0 0 10px rgba(230, 67, 44, 0);
   }
 }
 
@@ -717,10 +711,7 @@ body {
   }
 
   .node-core {
-    width: 6px;
-    height: 6px;
-    top: 6px;
-    right: 6px;
+  display: none;
   }
 
   .milestone-card,
@@ -866,8 +857,10 @@ body {
 }
 
 @media (max-width: 700px) {
-  .contact-grid {
-    grid-template-columns: 1fr;
+  .milestone-here {
+    left: -5px;
+    top: -28px;
+    transform: translateX(0) rotate(-3deg);
   }
 }
 }
