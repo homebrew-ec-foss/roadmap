@@ -38,27 +38,24 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 304 304' width='304' height='304'%3E%3Cpath fill='%23ff914d' fill-opacity='0.06' d='M44.1 224a5 5 0 1 1 0 2H0v-2h44.1zm160 48a5 5 0 1 1 0 2H82v-2h122.1zm57.8-46a5 5 0 1 1 0-2H304v2h-42.1zm0 16a5 5 0 1 1 0-2H304v2h-42.1z'%3E%3C/path%3E%3C/svg%3E");
 }
 .brand-bar {
-  padding: 18px 6%;
-  border-bottom: 1px solid var(--border-soft);
+  width: 100%;
+  padding: 24px 5%;
+  border-bottom: 1px solid var(--border);
 }
 
 .brand-mark {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--text);
-}
-
-.brand-logo {
-  height: 30px;
-  width: auto;
   display: block;
+  width: fit-content;
+}
+.brand-logo {
+  display: block;
+  width: 100px !important;
+  height: 80px !important;
+  object-fit: contain;
 }
 
-.brand-mark span {
-  font-size: 13px;
-  letter-spacing: 0.06em;
+.brand-mark:hover .brand-logo {
+  transform: scale(1.05);
 }
 
 .hero {
