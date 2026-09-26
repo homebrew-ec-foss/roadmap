@@ -2,7 +2,7 @@
 title: "FireSide"
 date: "2026-09-10"
 description: "A space to share and present projects, tools, ideas and anything that interests you."
-previewimage: "/images/fireside.jpg"
+previewimage: "/images/fireside.png"
 layout: "milestone"
 collections:
   - milestones

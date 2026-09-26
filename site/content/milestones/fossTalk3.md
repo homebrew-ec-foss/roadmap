@@ -3,16 +3,12 @@ title: "Foss Talk 3.0"
 date: "2026-04-11" 
 description: "An exciting meetup where industry experts share their insights and experiences with open-source technologies!"
 previewimage: "/images/fosstalk3.webp"
-sameerimage: "/images/sameer.webp"
-pranavimage: "/images/pranavm.webp"
-anshulimage: "/images/anshul.webp"
-ashutoshimage: "/images/ashutosh2.webp"
 layout: "milestone"
 collections:
 
 - milestones
 ---
-# Foss Talk 3.0
+## What is Foss Talk ?
 FOSS Talks 3.0 is a curated event series where developers share deep dives into their projects, technical learnings, and experiences building in the FOSS ecosystem.
 
 Venue: [Samagata Space](https://maps.app.goo.gl/RG6rWAuzp9P9bzty8), Church Street, Bengaluru

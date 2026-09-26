@@ -25,15 +25,21 @@
       class="back-link">
       ← BACK TO COMMIT HISTORY
     </a>
-    <span>HOME BREW / EC&amp;FOSS</span>
+    <span>HOME BREW</span>
   </header>
 
   <main class="story">
     <div class="story-hero-image">
-  <img
-    src="/images/fireside.jpg"
-    alt="">
-</div>
+        {{if $page.Frontmatter.PreviewImage}}
+            <img
+            src="{{$page.Frontmatter.PreviewImage}}"
+            alt="{{$page.Frontmatter.Title}}">
+        {{else}}
+            <img
+            src="/images/fireside.jpg"
+            alt="{{$page.Frontmatter.Title}}">
+        {{end}}
+    </div>
     <div class="story-meta">
       <time
         datetime="{{$page.Frontmatter.Date}}">
@@ -61,7 +67,7 @@
     </a>
   </main>
   <footer class="site-footer">
-    <div>HOME BREW EC&amp;FOSS</div>
+    <div>HOME BREW</div>
     <div>BUILT WITH ANNA ♥
     </div>
   </footer>

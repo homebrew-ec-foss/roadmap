@@ -41,7 +41,7 @@
     const width = roadmap.clientWidth;
     const center = width / 2;
     const sideOffset = Math.min(300, Math.max(180, width * 0.27));
-    const topStart = 90;
+    const topStart = 225;
     const step = Math.max(300,Math.min(390, 1300 / Math.max(1, milestones.length - 1)));
     const points = [];
     milestones.forEach((milestone, index) => {
