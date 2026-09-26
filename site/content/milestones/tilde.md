@@ -2,14 +2,14 @@
 title: "Tilde"
 date: "2026-09-10" 
 description: "Tilde is the anual mentorship event by Homebrew"
-previewimage: "/images/fireside.jpg"
+previewimage: "/images/tilde.png"
 layout: "milestone"
 collections:
 
  - milestones
 ---
 
-# What is Tilde ?
+## What is Tilde ?
 Tilde is essentially a mentorship program, the mentees selected would be working under the guidance of the project leads, where all the decisions are taken by the mentees. The mentor's job is to point them in the right direction and help them understand what they are working with.
 
 ## How does Tilde work ?
