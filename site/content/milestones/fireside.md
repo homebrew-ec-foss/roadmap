@@ -1,22 +1,19 @@
 ---
 title: "FireSide"
-date: "2026-09-10" 
-description: "A space to share and present projects, tools, ideas, and anything that piques your curiosity."
+date: "2026-09-10"
+description: "A space to share and present projects, tools, ideas and anything that interests you."
 previewimage: "/images/fireside.jpg"
 layout: "milestone"
 collections:
   - milestones
 ---
 
-Got a side project you've been cooking up? Came across an obscure tool or paper that blew your mind? Or maybe you just want to dump knowledge on a niche topic you're obsessed with? **Fireside is your stage.**
+Do you want to share something to the world, a project you are working on, a tool you read about recently, or a topic that actually interests you?
 
-Firesides are low-stakes, peer-led lightning talks where anyone in the community can step up and share. No fancy slide decks or corporate polish required—just raw curiosity, neat hacks, and good discussions.
+**FireSide is your place to speak about anything.**
 
-### When & Where
-We host Fireside sessions during **college hour breaks** and on **Wednesday evenings**. Whether it's a 10-minute quick demo or a 30-minute deep dive, all topics across systems, dev tools, AI, security, and design are welcome.
+FireSide sessions are conducted during college-hour breaks or on a Wednesday evening.
 
----
+Do you want to submit a FireSide proposal?
 
-Got something to talk about? Don't let it sit in your local drafts.
-
-[Submit a Fireside Proposal](https://hsp-ec.xyz/cfp-firesides)
+[Click here](https://github.com/orgs/homebrew-ec-foss/discussions/92)
