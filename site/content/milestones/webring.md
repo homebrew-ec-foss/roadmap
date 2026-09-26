@@ -2,7 +2,7 @@
 title: "Webring"
 date: "2026-09-10"
 description: "Webring is the collection of FOSS communities and sites deticated to open source software"
-previewimage: "/images/fireside.jpg"
+previewimage: "/images/webring.webp"
 layout: "milestone"
 collections:
 

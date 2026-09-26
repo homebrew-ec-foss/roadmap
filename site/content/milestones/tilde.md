@@ -2,7 +2,7 @@
 title: "Tilde"
 date: "2026-09-10" 
 description: "Tilde is the anual mentorship event by Homebrew"
-previewimage: "/images/fireside.jpg"
+previewimage: "/images/tilde.webp"
 layout: "milestone"
 collections:
 

@@ -2,7 +2,7 @@
 title: "Homebrew FOSS by HackerSpace PESUECC"
 date: "2021-01-01" 
 description: "Homebrew is the FOSS wing of HSP formerly known as Hackerspace based at PES University, Electronic City Campus."
-previewimage: "/images/hb.jpg"
+previewimage: "/images/logo.webp"
 layout: "milestone"
 collections:
 
